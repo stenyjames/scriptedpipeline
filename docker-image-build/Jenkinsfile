@@ -1,4 +1,5 @@
 node {
+   label "Jenkins-Slave-Centos7-VM"
    
    stage("Build Docker Centos 7 image") {
       echo "Building docker image"
