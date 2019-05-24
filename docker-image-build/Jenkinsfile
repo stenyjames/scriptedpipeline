@@ -6,7 +6,7 @@ node("Jenkins-Slave-Centos7-VM") {
    
    stage("Build Docker Centos 7 image") {
       echo "Building docker image"
-      def centosImage = docker.build("centos7-ansible:latest")
+      def centosImage = docker.build("centos7-ansible:latest", "./docker-image-build")
       
       centosImage.inside {
          sh "hostname"
