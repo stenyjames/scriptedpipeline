@@ -1,5 +1,4 @@
-node {
-   label "Jenkins-Slave-Centos7-VM"
+node("Jenkins-Slave-Centos7-VM") {
    
    stage("Print cwd") {
       sh "pwd"
