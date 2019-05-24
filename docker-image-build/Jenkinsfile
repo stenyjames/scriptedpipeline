@@ -6,6 +6,12 @@ node("Jenkins-Slave-Centos7-VM") {
    
    stage("Build Docker Centos 7 image") {
       echo "Building docker image"
+      checkout([$class: 'GitSCM'
+        branches: [[name: "origin/naster"]],
+		userRemoteConfigs: [[
+		url: 'https://github.com/stenyjames/scriptedpipeline.git' ]]
+		])
+		
       def centosImage = docker.build("centos7-ansible:latest", "./docker-image-build")
       
       centosImage.inside {
