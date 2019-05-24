@@ -1,6 +1,5 @@
 node {
 
- stages {
    
    stage("Download from Github Repo") {  
      echo "Downloading from github"
@@ -10,7 +9,7 @@ node {
       echo "Building docker image"
    }
 
- }
+ 
 
 
 }
