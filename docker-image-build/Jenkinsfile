@@ -1,7 +1,8 @@
 node("Jenkins-Slave-Centos7-VM") {
    
    stage("Print cwd") {
-      sh "pwd"
+      sh "pwd" 
+      sh "id"
    }
    
    stage("Build Docker Centos 7 image") {
