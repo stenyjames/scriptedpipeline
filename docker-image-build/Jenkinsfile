@@ -1,6 +1,10 @@
 node {
    label "Jenkins-Slave-Centos7-VM"
    
+   stage("Print cwd") {
+      sh "pwd"
+   }
+   
    stage("Build Docker Centos 7 image") {
       echo "Building docker image"
       def centosImage = docker.build("centos7-ansible:latest")
