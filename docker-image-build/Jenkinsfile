@@ -8,6 +8,7 @@ node("Jenkins-Slave-Centos7-VM") {
       echo "Building docker image"
       checkout([$class: 'GitSCM',
         branches: [[name: "origin/naster"]],
+		gitTool: 'git-slave', 
 		userRemoteConfigs: [[
 		url: 'https://github.com/stenyjames/scriptedpipeline.git' ]]
 		])
