@@ -36,6 +36,12 @@ stage("Push Docker Centos 7 image") {
       }
    
 }
+	
+	
+stage("Cleanup docker images from workspace") {
+      echo "Removing the newly created docker image"
+      sh "docker rmi ${Imagename}:${env.BUILD_NUMBER}"
+}
 
 
 }
