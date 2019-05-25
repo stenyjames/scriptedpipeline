@@ -1,16 +1,27 @@
-node {
-
- stages {
+node("Jenkins-Slave-Centos7-VM") {
    
-   stage("Download from Github Repo") {  
-     echo "Downloading from github"
-
+   stage("Print cwd") {
+      sh "pwd" 
+      sh "id"
    }
+   
    stage("Build Docker Centos 7 image") {
       echo "Building docker image"
+      checkout([$class: 'GitSCM',
+        branches: [[name: "origin/master"]],
+		gitTool: 'git-slave', 
+		userRemoteConfigs: [[
+		url: 'https://github.com/stenyjames/scriptedpipeline.git' ]]
+		])
+		
+      def centosImage = docker.build("centos7-ansible:latest", "./docker-image-build")
+      
+      centosImage.inside {
+         sh "hostname"
+      }
    }
 
- }
+ 
 
 
 }
