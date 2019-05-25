@@ -24,6 +24,7 @@ node("Jenkins-Slave-Centos7-VM") {
 	
 stage("Push Docker Centos 7 image") {
       echo "Pushing newly created docker image"
+	retry(3) {
 	docker.withRegistry("https://registry.hub.docker.com","docker-hub-credentials") {
 		//centosImage.push("${env.BUILD_NUMBER}")
 		//centosImage.push("stenyjames/devops-centos7:latest")
@@ -31,7 +32,7 @@ stage("Push Docker Centos 7 image") {
 	}
       }
    
- 
+}
 
 
 }
