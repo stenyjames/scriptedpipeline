@@ -1,7 +1,8 @@
 node("Jenkins-Slave-Centos7-VM") {
   def centosImage
   def Registry="https://registry.hub.docker.com"
-  def Imagename="stenyjames/devops-centos7:latest"
+  def Imagename="stenyjames/devops-centos7"
+
    stage("Print cwd") {
       sh "pwd" 
       sh "id"
@@ -16,7 +17,7 @@ node("Jenkins-Slave-Centos7-VM") {
 		url: 'https://github.com/stenyjames/scriptedpipeline.git' ]]
 		])
 		
-	   centosImage = docker.build("${Imagename}", "./docker-image-build")
+	   centosImage = docker.build("${Imagename}:${env.BUILD_NUMBER}", "./docker-image-build")
       
       centosImage.inside {
          sh "hostname"
