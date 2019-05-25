@@ -16,7 +16,7 @@ node("Jenkins-Slave-Centos7-VM") {
 		url: 'https://github.com/stenyjames/scriptedpipeline.git' ]]
 		])
 		
-      centosImage = docker.build($Imagename, "./docker-image-build")
+	   centosImage = docker.build("${Imagename}", "./docker-image-build")
       
       centosImage.inside {
          sh "hostname"
@@ -27,7 +27,7 @@ node("Jenkins-Slave-Centos7-VM") {
 stage("Push Docker Centos 7 image") {
       echo "Pushing newly created docker image"
 	retry(3) {
-	docker.withRegistry($Registry,"docker-hub-credentials") {
+		docker.withRegistry("${Registry}","docker-hub-credentials") {
 		//centosImage.push("${env.BUILD_NUMBER}")
 		//centosImage.push("stenyjames/devops-centos7:latest")
 		centosImage.push()
