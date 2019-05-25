@@ -2,7 +2,7 @@ node("Jenkins-Slave-Centos7-VM") {
   def centosImage
   def Registry="https://registry.hub.docker.com"
   def Imagename="stenyjames/devops-centos7"
-  def JobStatus
+  def JobDetails
 	
    stage("Print cwd") {
       sh "pwd" 
@@ -19,7 +19,7 @@ node("Jenkins-Slave-Centos7-VM") {
 		])
 		
 	   centosImage = docker.build("${Imagename}:${env.BUILD_NUMBER}", "./docker-image-build")
-      
+         
       centosImage.inside {
          sh "hostname"
       }
@@ -33,6 +33,7 @@ stage("Push Docker Centos 7 image") {
 		//centosImage.push("${env.BUILD_NUMBER}")
 		//centosImage.push("stenyjames/devops-centos7:latest")
 		centosImage.push()
+		JobDetails="Job ${env.JOB_NAME} created image ${env.BUILD_NUMBER} successfully"
 		
 	}
       }
@@ -46,7 +47,7 @@ stage("Cleanup docker images from workspace") {
 }
 
 	stage("Slack notification") {
-		slackSend (color: "Green", message: "Imaged pushed to repository")
+		slackSend (color: "Green", message: "${JobDetails}")
 	}
 
 }
