@@ -2,7 +2,8 @@ node("Jenkins-Slave-Centos7-VM") {
   def centosImage
   def Registry="https://registry.hub.docker.com"
   def Imagename="stenyjames/devops-centos7"
-
+  def JobStatus
+	
    stage("Print cwd") {
       sh "pwd" 
       sh "id"
@@ -32,6 +33,7 @@ stage("Push Docker Centos 7 image") {
 		//centosImage.push("${env.BUILD_NUMBER}")
 		//centosImage.push("stenyjames/devops-centos7:latest")
 		centosImage.push()
+		
 	}
       }
    
@@ -43,5 +45,8 @@ stage("Cleanup docker images from workspace") {
       sh "docker rmi ${Imagename}:${env.BUILD_NUMBER}"
 }
 
+	stage("Slack notification") {
+		slackSend (color: "Green", message: "Imaged pushed to repository")
+	}
 
 }
