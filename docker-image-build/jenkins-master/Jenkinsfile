@@ -1,0 +1,16 @@
+node {
+
+ stages {
+   
+   stage("Download from Github Repo") {  
+     echo "Downloading from github"
+
+   }
+   stage("Build Docker Centos 7 image") {
+      echo "Building docker image"
+   }
+
+ }
+
+
+}
