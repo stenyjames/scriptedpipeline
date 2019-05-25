@@ -1,5 +1,5 @@
 node("Jenkins-Slave-Centos7-VM") {
-   
+   def centosImage =""
    stage("Print cwd") {
       sh "pwd" 
       sh "id"
@@ -14,7 +14,7 @@ node("Jenkins-Slave-Centos7-VM") {
 		url: 'https://github.com/stenyjames/scriptedpipeline.git' ]]
 		])
 		
-      def centosImage = docker.build("stenyjames/devops-centos7:latest", "./docker-image-build")
+      centosImage = docker.build("stenyjames/devops-centos7:latest", "./docker-image-build")
       
       centosImage.inside {
          sh "hostname"
